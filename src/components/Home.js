@@ -1,5 +1,6 @@
 import { onNavigate } from '../router/index';
 import { loginUser, loginGoogle } from '../lib/autenticar';
+import logo from '../img/logo.png'
 
 export const Home = () => {
   const HomeDiv = document.createElement('section');
@@ -14,7 +15,7 @@ export const Home = () => {
   buttonLoginGoogle.setAttribute('id', 'idGoogle');
   const header = document.createElement('header');
   const img = document.createElement('img');
-  img.setAttribute('src', './img/logo.png');
+  img.setAttribute('src', logo);
   img.setAttribute('alt', 'Logo de la marca MaMá Genial');
   img.id = 'logoEncabezado';
   header.appendChild(img);
@@ -37,6 +38,7 @@ export const Home = () => {
         const user = credential.user;
         //const user = credential.user.uid;
         console.log(user);
+        if(user !== undefined)
         onNavigate('/feed');
       })
       .catch((error) => {
@@ -73,9 +75,11 @@ export const Home = () => {
         .then((res) => { // then para promesa cumplida
         // enviarlo al muro
           console.log(res);
-
+          if (user !== undefined) {
+            onNavigate('/feed');
+          }
           // REDIRECCIONA EL LOGIN (pone alertas en usuarios no reistrados)
-          onNavigate('/feed');
+          //onNavigate('/feed');
         })
         .catch((error) => { // para promesa fallida
           console.log(error.message);
